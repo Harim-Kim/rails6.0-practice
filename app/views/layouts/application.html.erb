@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ringle</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <div>
+    <% if user_signed_in? or tutor_signed_in? or student_signed_in? %>
+      <% if user_signed_in? %>
+        <%= link_to "회원정보", edit_user_registration_path %>
+        <%= link_to "로그아웃", destroy_user_session_path, method: :delete %>
+      <% elsif  tutor_signed_in? %>
+        <%= link_to "회원정보", edit_tutor_registration_path %>
+        <%= link_to "로그아웃", destroy_tutor_session_path, method: :delete %>
+      <% elsif  student_signed_in? %>
+        <%= link_to "회원정보", edit_student_registration_path %>
+        <%= link_to "로그아웃", destroy_student_session_path, method: :delete %>
+      <% end %>
+
+    <% else %>
+      <%#= link_to "로그인", user_session_path %>
+      <%#= link_to "회원가입", "/users/sign_up" %>
+      <%= link_to "학생 로그인", student_session_path %>
+      <%= link_to "학생 회원가입", "/students/sign_up" %>
+      <%= link_to "튜터 로그인", tutor_session_path %>
+      <%= link_to "튜터 회원가입", "/tutors/sign_up" %>
+    <% end %>
+    </div>
+    <hr/>
+    <%= alert %>
+    <%= notice %>
+    <h2 style="font-weight: bold">로그인 정보</h2>
+    <% if user_signed_in? or tutor_signed_in? or student_signed_in? %>
+      <% if user_signed_in? %>
+        <div>
+          아이디 : <%= current_user.email %><br/>
+          유저 No. : <%= current_user.id %>
+        </div>
+      <% elsif  tutor_signed_in? %>
+        <div>
+          아이디 : <%= current_tutor.email %><br/>
+          유저 No. : <%= current_tutor.id %>
+        </div>
+      <% elsif  student_signed_in? %>
+        <div>
+          아이디 : <%= current_student.email %><br/>
+          유저 No. : <%= current_student.id %>
+        </div>
+      <% end %>
+
+    <% else %>
+      로그인 되어있지 않음.
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

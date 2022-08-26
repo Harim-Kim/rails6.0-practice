@@ -1,0 +1,5 @@
+<h1>Tutor#index</h1>
+<p>Find me in app/views/tutor/index.html.erb</p>
+<% @timetables.each do |t| %>
+  <p><%= t.start_time %> | <%= t.active %></p>
+<% end %>
