@@ -1,5 +1,36 @@
 <h1>Student#index</h1>
 <p>Find me in app/views/student/index.html.erb</p>
+
+<table class="table">
+<thead>
+<tr>
+  <th scope="col">#</th>
+  <th scope="col">Start Time</th>
+  <th scope="col">Avail</th>
+  <th scope="col">enroll</th>
+</tr>
+</thead>
+<tbody>
 <% @timetables.each do |t| %>
-  <p><%= t.start_time %> | <%= t.active %></p>
+  <tr>
+    <th scope="row"><%= t.id %></th>
+    <td><%= t.start_time %>></td>
+    <% if t.count_lesson >0 %>
+      <td>가능</td>
+    <% else %>
+      <td>불가능</td>
+    <%end %>
+
+    <% if t.count_lesson >0 %>
+      <td><%= link_to "튜터 보기", new_lesson_path(time_table_id:t.id ) %></td>
+    <% else %>
+      <td>-</td>
+    <%end %>
+  </tr>
+
 <% end %>
+
+
+
+</tbody>
+</table>

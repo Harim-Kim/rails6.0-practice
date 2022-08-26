@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: %i[ show edit update destroy ]
-
+  before_action
   # GET /lessons or /lessons.json
   def index
     @lessons = Lesson.all
@@ -13,6 +13,7 @@ class LessonsController < ApplicationController
   # GET /lessons/new
   def new
     @lesson = Lesson.new
+    @time_table_id = params[:time_table_id]
   end
 
   # GET /lessons/1/edit
@@ -63,9 +64,10 @@ class LessonsController < ApplicationController
       @lesson = Lesson.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.q
+    # Only allow a list of trusted parameters through.
     def lesson_params
-      params[:lesson][:tutor_id] = current_tutor.id
-      params.require(:lesson).permit(:start_time, :end_time, :type, :tutor_id)
+      params[:lesson][:tutor_id] = current_tutor.__id__
+      params[:lesson][:time_table_id] = params[:time_table_id]
+      params.require(:lesson).permit(:start_time, :end_time, :type, :tutor_id, :time_table_id)
     end
 end

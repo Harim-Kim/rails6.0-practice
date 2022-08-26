@@ -16,6 +16,7 @@ class LessonsTest < ApplicationSystemTestCase
 
     fill_in "End time", with: @lesson.end_time
     fill_in "Start time", with: @lesson.start_time
+    fill_in "Time table", with: @lesson.time_table_id
     fill_in "Tutor", with: @lesson.tutor_id
     fill_in "Type", with: @lesson.type
     click_on "Create Lesson"
@@ -30,6 +31,7 @@ class LessonsTest < ApplicationSystemTestCase
 
     fill_in "End time", with: @lesson.end_time
     fill_in "Start time", with: @lesson.start_time
+    fill_in "Time table", with: @lesson.time_table_id
     fill_in "Tutor", with: @lesson.tutor_id
     fill_in "Type", with: @lesson.type
     click_on "Update Lesson"

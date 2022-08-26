@@ -10,16 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_25_140319) do
+ActiveRecord::Schema.define(version: 2022_08_26_120148) do
 
   create_table "lessons", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "type"
     t.integer "tutor_id", null: false
+    t.integer "time_table_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["time_table_id"], name: "index_lessons_on_time_table_id"
     t.index ["tutor_id"], name: "index_lessons_on_tutor_id"
+  end
+
+  create_table "lessons_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "lesson_id", null: false
   end
 
   create_table "students", force: :cascade do |t|
@@ -35,10 +42,14 @@ ActiveRecord::Schema.define(version: 2022_08_25_140319) do
   end
 
   create_table "time_tables", force: :cascade do |t|
-    t.datetime "start_time"
-    t.boolean "active"
+    t.datetime "start_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "time_tables_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "time_table_id", null: false
   end
 
   create_table "tutors", force: :cascade do |t|
@@ -65,5 +76,6 @@ ActiveRecord::Schema.define(version: 2022_08_25_140319) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "lessons", "time_tables"
   add_foreign_key "lessons", "tutors"
 end

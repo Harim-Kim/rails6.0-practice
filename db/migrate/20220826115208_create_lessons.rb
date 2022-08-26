@@ -5,6 +5,7 @@ class CreateLessons < ActiveRecord::Migration[6.0]
       t.timestamp :end_time
       t.integer :type
       t.references :tutor, null: false, foreign_key: true
+      t.references :time_table, null: false, foreign_key: true
 
       t.timestamps
     end

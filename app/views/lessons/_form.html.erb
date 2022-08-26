@@ -26,9 +26,15 @@
     <%= form.number_field :type %>
   </div>
 
+<!--  <div class="field">-->
+    <%#= form.label :tutor_id %>
+    <%#= form.hidden_field :tutor_id %>
+<!--  </div>-->
+
   <div class="field">
-    <%= form.label :tutor_id %>
-    <%= form.text_field :tutor_id %>
+    <%#= form.label :time_table_id %>
+    <%= form.hidden_field :time_table_id %>
+    <%= hidden_field_tag 'time_table_id', @time_table_id  %>
   </div>
 
   <div class="actions">

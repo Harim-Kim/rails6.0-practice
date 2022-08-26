@@ -9,6 +9,7 @@
       <th>End time</th>
       <th>Type</th>
       <th>Tutor</th>
+      <th>Time table</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <td><%= lesson.end_time %></td>
         <td><%= lesson.type %></td>
         <td><%= lesson.tutor_id %></td>
+        <td><%= lesson.time_table_id %></td>
         <td><%= link_to 'Show', lesson %></td>
         <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
         <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>

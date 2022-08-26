@@ -1,13 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  start_time: 2022-08-25 23:03:19
-  end_time: 2022-08-25 23:03:19
+  start_time: 2022-08-26 20:52:08
+  end_time: 2022-08-26 20:52:08
   type: 1
   tutor: one
+  time_table: one
 
 two:
-  start_time: 2022-08-25 23:03:19
-  end_time: 2022-08-25 23:03:19
+  start_time: 2022-08-26 20:52:08
+  end_time: 2022-08-26 20:52:08
   type: 1
   tutor: two
+  time_table: two
