@@ -12,4 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require simple_calendar
  */
+div.able{
+    background-color: green;
+}
+div.unable{
+    background-color: #666666;
+}

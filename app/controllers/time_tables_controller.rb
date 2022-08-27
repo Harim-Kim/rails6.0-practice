@@ -9,7 +9,9 @@ class TimeTablesController < ApplicationController
   # GET /time_tables/1 or /time_tables/1.json
   def show
   end
-
+  def lessons
+    @lessons = TimeTable.find(params[:time_table_id]).lessons
+  end
   # GET /time_tables/new
   def new
     @time_table = TimeTable.new

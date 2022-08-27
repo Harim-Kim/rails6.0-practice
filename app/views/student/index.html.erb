@@ -1,36 +1,40 @@
-<h1>Student#index</h1>
-<p>Find me in app/views/student/index.html.erb</p>
+<h1>모든 수업 보기</h1>
+<p><a href="/student/lesson_20">20분 수업</a><a href="/student/lesson_40">40분 수업</a></p>
+<h3>all lessons: <%= Lesson.all.count %></h3>
+<%= week_calendar(number_of_weeks: 2, events: @timetables) do |date, timetables| %>
+  <%= date %>
+  <% timetables.each do |t| %>
+    <div>
+      <% able = true %>
+      <% t.lessons.each do |l| %>
 
-<table class="table">
-<thead>
-<tr>
-  <th scope="col">#</th>
-  <th scope="col">Start Time</th>
-  <th scope="col">Avail</th>
-  <th scope="col">enroll</th>
-</tr>
-</thead>
-<tbody>
-<% @timetables.each do |t| %>
-  <tr>
-    <th scope="row"><%= t.id %></th>
-    <td><%= t.start_time %>></td>
-    <% if t.count_lesson >0 %>
-      <td>가능</td>
-    <% else %>
-      <td>불가능</td>
-    <%end %>
+        <% current_student.lessons.each do |s_l| %>
+          <% if s_l.start_time >= l.start_time and l.start_time < s_l.end_time  %>
+            <% able = false %>
+<!--            하나라도 겹치는 경우-->
+            <% break %>
+          <% end %>
+        <% end %>
+<!--        하나라도 겹치면-->
+        <% if !able %>
+            <% break %>
+        <% end %>
 
-    <% if t.count_lesson >0 %>
-      <td><%= link_to "튜터 보기", new_lesson_path(time_table_id:t.id ) %></td>
-    <% else %>
-      <td>-</td>
-    <%end %>
-  </tr>
+<!--        겹치는 수업이 없는 경우 모든 수업을 탐색해서 등록된 학생이 있는지 탐색 하나라도 가능한 경우-->
+        <% if l.students.count = 0  %>
+            <% able = true %>
+            <% break %>
+        <% end %>
+      <%end %>
+      <% if able  %>
+        <div class="able"><%= t.start_time.hour.to_s+"H"+"-"+t.start_time.min.to_s+"M" %></div>
+      <% else %>
+        <div class="unable"><%= t.start_time.hour.to_s+"-"+t.start_time.min.to_s %></div>
+      <% end %>
+    </div>
+  <% end %>
 
 <% end %>
 
 
 
-</tbody>
-</table>

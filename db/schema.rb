@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_26_120148) do
+ActiveRecord::Schema.define(version: 2022_08_26_180901) do
 
   create_table "lessons", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "type"
+    t.integer "lesson_type"
     t.integer "tutor_id", null: false
     t.integer "time_table_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2022_08_26_120148) do
     t.index ["tutor_id"], name: "index_lessons_on_tutor_id"
   end
 
-  create_table "lessons_users", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
+  create_table "lessons_students", id: false, force: :cascade do |t|
+    t.integer "student_id", null: false
     t.integer "lesson_id", null: false
   end
 
@@ -41,15 +41,15 @@ ActiveRecord::Schema.define(version: 2022_08_26_120148) do
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   end
 
+  create_table "students_time_tables", id: false, force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "time_table_id", null: false
+  end
+
   create_table "time_tables", force: :cascade do |t|
     t.datetime "start_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "time_tables_users", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "time_table_id", null: false
   end
 
   create_table "tutors", force: :cascade do |t|

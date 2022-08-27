@@ -1,9 +1,13 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: %i[ show edit update destroy ]
-  before_action
+  before_action :authenticate_tutor!, only: %i[edit create update destroy]
   # GET /lessons or /lessons.json
   def index
-    @lessons = Lesson.all
+    if params.has_key?(:time_table_id)
+      @lessons = TimeTable.find(params[:time_table_id]).lessons
+    else
+      @lessons = Lesson.all
+    end
   end
 
   # GET /lessons/1 or /lessons/1.json
@@ -12,8 +16,18 @@ class LessonsController < ApplicationController
 
   # GET /lessons/new
   def new
-    @lesson = Lesson.new
     @time_table_id = params[:time_table_id]
+    start_time = TimeTable.find(@time_table_id).start_time
+
+    lessons = current_tutor.lessons
+    lessons.each do |l|
+      if l.start_time <= start_time and start_time < l.end_time
+        redirect_to request.referrer, notice: "기존 수업과 시간이 겹칩니다"
+        break
+      end
+    end
+    @lesson = Lesson.new
+
   end
 
   # GET /lessons/1/edit
@@ -22,7 +36,18 @@ class LessonsController < ApplicationController
 
   # POST /lessons or /lessons.json
   def create
-    @lesson = Lesson.new(lesson_params)
+    start_time = TimeTable.find(lesson_params["time_table_id"]).start_time
+    @end_time = start_time + 20.minutes
+    if lesson_params[:lesson_type] = 2
+      @end_time = @end_time + 20.minutes
+    end
+
+    @lesson = Lesson.new(:start_time => start_time,
+                         :end_time => @end_time,
+                         :lesson_type => lesson_params["lesson_type"],
+                         :tutor_id => lesson_params["tutor_id"],
+                         :time_table_id => lesson_params["time_table_id"])
+
 
     respond_to do |format|
       if @lesson.save
@@ -66,8 +91,8 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params[:lesson][:tutor_id] = current_tutor.__id__
-      params[:lesson][:time_table_id] = params[:time_table_id]
-      params.require(:lesson).permit(:start_time, :end_time, :type, :tutor_id, :time_table_id)
+      params[:lesson][:tutor_id] = current_tutor.id
+      # params[:lesson][:time_table_id] = params[:time_table_id]
+      params.require(:lesson).permit(:start_time, :end_time, :lesson_type, :tutor_id, :time_table_id)
     end
 end

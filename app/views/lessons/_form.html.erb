@@ -11,19 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.datetime_select :start_time %>
-  </div>
+<!--  <div class="field">-->
+    <%#= form.label :start_time %>
+    <%#= form.datetime_select :start_time, selected: @time_table.start_time %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :end_time %>
+    <%#= form.datetime_select :end_time %>
+<!--  </div>-->
 
   <div class="field">
-    <%= form.label :end_time %>
-    <%= form.datetime_select :end_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :type %>
-    <%= form.number_field :type %>
+    <%= form.label :lesson_type %>
+    <%= form.radio_button  :lesson_type, 1 %> 20분<br>
+    <%= form.radio_button  :lesson_type, 2 %> 40분<br>
   </div>
 
 <!--  <div class="field">-->
@@ -33,8 +34,8 @@
 
   <div class="field">
     <%#= form.label :time_table_id %>
-    <%= form.hidden_field :time_table_id %>
-    <%= hidden_field_tag 'time_table_id', @time_table_id  %>
+    <%= form.hidden_field :time_table_id , value: @time_table_id%>
+    <%#= hidden_field_tag 'time_table_id', value:@time_table_id  %>
   </div>
 
   <div class="actions">

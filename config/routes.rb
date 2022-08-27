@@ -4,11 +4,17 @@ Rails.application.routes.draw do
   #   resources :lessons
   # end
   resources :time_tables
-  resources :time_tables do
-    resources :lessons
-  end
+  # resources :time_tables do
+  #   resources :lessons
+  # end
+  get 'time_tables/:time_table_id/lessons' => "time_tables#lessons"
   get 'student/index'
   get 'tutor/index'
+  get 'tutor/:id/lessons' => "tutor#lessons"
+  get 'student/:student_id/lessons/:lesson_id' => 'student#enroll'
+  delete 'stundent/:student_id/lessons/:lesson_id'  => 'student#unenroll'
+  get 'student/lesson_20' => 'student#lesson_20'
+  get 'student/lesson_40' => 'student#lesson_40'
   get '/lessons/new/:time_table_id' => "lessons#new"
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :students

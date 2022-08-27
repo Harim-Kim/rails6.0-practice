@@ -1,0 +1,23 @@
+<h1>40분 수업</h1>
+<p><a href="/student">모든 수업</a><a href="/student/lesson_20">20분 수업</a></p>
+
+<%= week_calendar(number_of_weeks: 2, events: @timetables) do |date, timetables| %>
+  <%= date %>
+  <% timetables.each do |t| %>
+    <div>
+      <% t.lessons.each do |l| %>
+        <% able = true %>
+        <% current_student.lessons.each do |s_l| %>
+          <% if s_l.start_time >= l.start_time and l.start_time < s_l.end_time  %>
+            <% able = false %>
+          <% end %>
+        <% end %>
+        <% if able and l.students.count = 0%>
+          <span class="able"><%= l.start_time.hour.to_s+"+"+l.start_time.min.to_s %></span>
+        <% else %>
+          <span class="unable"><%= l.start_time.hour.to_s+"+"+l.start_time.min.to_s %></span>
+        <% end %>
+      <%end %>
+    </div>
+  <% end %>
+<% end %>
