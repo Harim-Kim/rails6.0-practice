@@ -15,10 +15,11 @@ class LessonsTest < ApplicationSystemTestCase
     click_on "New Lesson"
 
     fill_in "End time", with: @lesson.end_time
+    fill_in "Lesson type", with: @lesson.lesson_type
     fill_in "Start time", with: @lesson.start_time
+    fill_in "Student", with: @lesson.student_id
     fill_in "Time table", with: @lesson.time_table_id
     fill_in "Tutor", with: @lesson.tutor_id
-    fill_in "Type", with: @lesson.type
     click_on "Create Lesson"
 
     assert_text "Lesson was successfully created"
@@ -30,10 +31,11 @@ class LessonsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "End time", with: @lesson.end_time
+    fill_in "Lesson type", with: @lesson.lesson_type
     fill_in "Start time", with: @lesson.start_time
+    fill_in "Student", with: @lesson.student_id
     fill_in "Time table", with: @lesson.time_table_id
     fill_in "Tutor", with: @lesson.tutor_id
-    fill_in "Type", with: @lesson.type
     click_on "Update Lesson"
 
     assert_text "Lesson was successfully updated"

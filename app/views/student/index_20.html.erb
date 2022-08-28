@@ -1,0 +1,39 @@
+<h1>20분 수업</h1>
+<p><a href="/student">모든 수업</a><a href="/student/lesson_40">40분 수업</a></p>
+
+<%= week_calendar(number_of_weeks: 2, events: @timetables) do |date, timetables| %>
+  <%= date %>
+  <% timetables.each do |t| %>
+    <div>
+      <% able = true %>
+      <% t.lessons.where("lesson_type = 1").each do |l| %>
+
+        <% @lessons.each do |s_l| %>
+          <% if s_l.start_time >= l.start_time and l.start_time < s_l.end_time  %>
+            <% able = false %>
+            <!--            하나라도 겹치는 경우-->
+            <% break %>
+          <% end %>
+        <% end %>
+        <!--        하나라도 겹치면-->
+        <% if !able %>
+          <% break %>
+        <% end %>
+
+        <!--        겹치는 수업이 없는 경우 모든 수업을 탐색해서 등록된 학생이 있는지 탐색 하나라도 가능한 경우-->
+        <% if l.student_id == 0  and l.lesson_type == 1  %>
+          <% able = true %>
+          <% break %>
+        <% end %>
+      <%end %>
+      <% if able and t.lessons.where("lesson_type = 1").count > 0  %>
+        <div class="able">
+        <%= t.start_time.strftime("%H:%M") %><a href="/student/time_tables/<%= t.id %>/lessons_20">강사보기</a>
+        </div>
+      <% else %>
+        <div class="unable"><%= t.start_time.hour.to_s+"-"+t.start_time.min.to_s %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+<% end %>

@@ -6,6 +6,7 @@ class CreateLessons < ActiveRecord::Migration[6.0]
       t.integer :lesson_type
       t.references :tutor, null: false, foreign_key: true
       t.references :time_table, null: false, foreign_key: true
+      t.integer :student_id
 
       t.timestamps
     end

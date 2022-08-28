@@ -6,18 +6,22 @@
     <th scope="col">Start Time</th>
     <th scope="col">End Time</th>
     <th scope="col">lesson type</th>
-    <th scope="col">enrolled students</th>
+    <th scope="col">enrolled student</th>
     <th scope="col">delete</th>
   </tr>
   </thead>
   <tbody>
-  <% @tutor_lessons.lessons.each do |l| %>
+  <% @tutor_lessons.each do |l| %>
     <tr>
       <th scope="row"><%= l.id %></th>
       <td><%= l.time_table.start_time %></td>
       <td><%= l.time_table.end_time %></td>
       <td><%= l.lesson_type %></td>
-      <td><%= l.students.count %></td>
+      <%if l.student_id != 0 %>
+        <td><%= Student.find(l.student_id).email %></td>
+      <% else %>
+        <td>x</td>
+      <% end %>
       <td><%= link_to 'Destroy', l, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
     </tr>

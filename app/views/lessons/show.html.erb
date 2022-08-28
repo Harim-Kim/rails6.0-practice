@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <strong>Type:</strong>
+  <strong>Lesson type:</strong>
   <%= @lesson.lesson_type %>
 </p>
 
@@ -23,6 +23,11 @@
 <p>
   <strong>Time table:</strong>
   <%= @lesson.time_table_id %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @lesson.student_id %>
 </p>
 
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |

@@ -1,4 +1,37 @@
-<h1>모든 수업 보기</h1>
+<hr>
+<h2>수강 중인 수업</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Start Time</th>
+    <th scope="col">End Time</th>
+    <th scope="col">lesson type</th>
+    <th scope="col">tutor/th>
+<!--    <th scope="col">delete</th>-->
+  </tr>
+  </thead>
+  <tbody>
+  <%  Lesson.where("student_id = ?", current_student.id).each do |l| %>
+    <tr>
+      <th scope="row"><%= l.id %></th>
+      <td><%= l.start_time %></td>
+      <td><%= l.end_time %></td>
+      <td><%= l.lesson_type %></td>
+      <td><%= l.tutor.email %></td>
+
+<!--      <td><%#= link_to 'Destroy', l, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+
+    </tr>
+
+  <% end %>
+
+
+  </tbody>
+</table>
+<hr>
+
+<h2>모든 수업 보기</h2>
 <p><a href="/student/lesson_20">20분 수업</a><a href="/student/lesson_40">40분 수업</a></p>
 <h3>all lessons: <%= Lesson.all.count %></h3>
 <%= week_calendar(number_of_weeks: 2, events: @timetables) do |date, timetables| %>
@@ -6,9 +39,10 @@
   <% timetables.each do |t| %>
     <div>
       <% able = true %>
+
       <% t.lessons.each do |l| %>
 
-        <% current_student.lessons.each do |s_l| %>
+        <% @lessons.each do |s_l| %>
           <% if s_l.start_time >= l.start_time and l.start_time < s_l.end_time  %>
             <% able = false %>
 <!--            하나라도 겹치는 경우-->
@@ -20,16 +54,18 @@
             <% break %>
         <% end %>
 
-<!--        겹치는 수업이 없는 경우 모든 수업을 탐색해서 등록된 학생이 있는지 탐색 하나라도 가능한 경우-->
-        <% if l.students.count = 0  %>
-            <% able = true %>
+<!--        겹치는 수업이 없는 경우, 모든 수업을 탐색해서 등록된 학생이 있는지 탐색 하나라도 가능한 경우-->
+        <% if l.student_id != 0  %>
+            <% able = false %>
             <% break %>
         <% end %>
       <%end %>
-      <% if able  %>
-        <div class="able"><%= t.start_time.hour.to_s+"H"+"-"+t.start_time.min.to_s+"M" %></div>
+      <% if able and t.lessons.count > 0%>
+        <div class="able">
+          <%= t.start_time.strftime("%H:%M") %><a href="/student/time_tables/<%= t.id %>/lessons">강사보기</a>
+        </div>
       <% else %>
-        <div class="unable"><%= t.start_time.hour.to_s+"-"+t.start_time.min.to_s %></div>
+        <div class="unable"><%= t.start_time.strftime("%H:%M") %></div>
       <% end %>
     </div>
   <% end %>

@@ -1,0 +1,6 @@
+<h1>Selected time: <%= @timetable.start_time %></h1>
+<ul>
+  <% @lessons.each do |l| %>
+    <li><%= l.tutor.email %><%= link_to "수강신청", enroll_lesson_path(l.id), method: :post%></li>
+  <% end %>
+</ul>

@@ -27,7 +27,6 @@ class LessonsController < ApplicationController
       end
     end
     @lesson = Lesson.new
-
   end
 
   # GET /lessons/1/edit
@@ -38,15 +37,16 @@ class LessonsController < ApplicationController
   def create
     start_time = TimeTable.find(lesson_params["time_table_id"]).start_time
     @end_time = start_time + 20.minutes
-    if lesson_params[:lesson_type] = 2
+    if lesson_params[:lesson_type] == "2"
       @end_time = @end_time + 20.minutes
     end
 
     @lesson = Lesson.new(:start_time => start_time,
                          :end_time => @end_time,
                          :lesson_type => lesson_params["lesson_type"],
-                         :tutor_id => lesson_params["tutor_id"],
-                         :time_table_id => lesson_params["time_table_id"])
+                         :tutor_id => current_tutor.id,
+                         :time_table_id => lesson_params["time_table_id"],
+                         :student_id => 0)
 
 
     respond_to do |format|
@@ -92,7 +92,6 @@ class LessonsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def lesson_params
       params[:lesson][:tutor_id] = current_tutor.id
-      # params[:lesson][:time_table_id] = params[:time_table_id]
-      params.require(:lesson).permit(:start_time, :end_time, :lesson_type, :tutor_id, :time_table_id)
+      params.require(:lesson).permit(:start_time,:tutor_id, :end_time, :lesson_type, :time_table_id, :student_id)
     end
 end
