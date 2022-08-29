@@ -35,26 +35,58 @@
   </tbody>
 </table>
 <hr>
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Start Time</th>
-    <th scope="col">enrolled classes</th>
-    <th scope="col">enroll</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @timetables.each do |t| %>
-    <tr>
-      <th scope="row"><%= t.id %></th>
-      <td><%= t.start_time %></td>
-      <td><%= t.lessons.count %></td>
-      <td><%= link_to "등록", new_lesson_path(time_table_id:t.id ) %></td>
+<%= week_calendar(number_of_weeks: 2, events: @timetables) do |date, timetables| %>
+  <%= date %>
+  <% timetables.each do |t| %>
+    <div>
+      <% able = true %>
 
-    </tr>
+      <% t.lessons.each do |l| %>
 
+        <% @tutor_lessons.each do |t_l| %>
+          <% if t_l.start_time >= l.start_time and l.start_time < t_l.end_time  %>
+            <% able = false %>
+            <!--            하나라도 겹치는 경우-->
+            <% break %>
+          <% end %>
+        <% end %>
+        <!--        하나라도 겹치면-->
+        <% if !able %>
+          <% break %>
+        <% end %>
+
+      <%end %>
+      <% if able %>
+        <div class="able">
+          <%= t.start_time.strftime("%H:%M") %><%= link_to "등록", new_lesson_path(time_table_id:t.id ) %></a>
+        </div>
+      <% else %>
+        <div class="unable"><%= t.start_time.strftime("%H:%M") %></div>
+      <% end %>
+    </div>
   <% end %>
 
-  </tbody>
-</table>
+<% end %>
+<!--<table class="table">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th scope="col">#</th>-->
+<!--    <th scope="col">Start Time</th>-->
+<!--    <th scope="col">enrolled classes</th>-->
+<!--    <th scope="col">enroll</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+  <%# @timetables.each do |t| %>
+<!--    <tr>-->
+<!--      <th scope="row"><%#= t.id %></th>-->
+<!--      <td><%#= t.start_time %></td>-->
+<!--      <td><%#= t.lessons.count %></td>-->
+<!--      <td><%#= link_to "등록", new_lesson_path(time_table_id:t.id ) %></td>-->
+
+<!--    </tr>-->
+
+  <%# end %>
+
+<!--  </tbody>-->
+<!--</table>-->

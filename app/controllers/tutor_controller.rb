@@ -2,7 +2,8 @@ class TutorController < ApplicationController
   before_action :authenticate_tutor!, only: %i[lessons, index]
   def index
     @timetables = TimeTable.all
-    # @tutor = current_tutor
+    # @tutor = current_tutor\
+    @tutor_lessons = Tutor.find(current_tutor.id).lessons
   end
 
   def lessons
