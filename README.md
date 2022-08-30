@@ -6,23 +6,11 @@
 
 * Rails version: 6.0.5.1
 
-* rake db:seed로 데이터 생성 부탁드립니다.(TimeTable)
-
-* student / tutor 회원이 존재 합니다
-* tutor는 수업을 생성할 수 있고
-* student는 수업에 자신을 등록할 수 있습니다.
 * 라이브러리
   * Devise: 회원별 회원 가입
   * devise-i18n: devise 번역을 위한 라이브러리
   * simple_calendar: 프론트에 날짜 및 시간 데이터를 원할하게 보여주기 위한 라이브러리
-## 기능 구현
-* root 페이지:<br>![img.png](img.png)
-* 로그인 페이지:<br>![img_1.png](img_1.png)
-* 튜터 페이지(/tutor) 해당 페이지에서 해당 튜터가 등록한 lesson 확인  및 Timetable에 따른 lesson 등록(프론트에서 등록 가능 링크를 제한함(lesson겹치지 않도록))<br>![img_2.png](img_2.png) 
-* 튜터 lesson 등록 페이지 등록시 기존에 등록한 lesson을 확인하여 겹치지 않도록 제한 함 겹칠시 /tutor 페이지로 되돌아감.<br>![img_4.png](img_4.png)![img_3.png](img_3.png)
-* 학생 페이지(/student) 해당 페이지에서 TimeTable에 따른 수강 가능한 시간 확인 (프론트에서 제한)<br>![img_5.png](img_5.png)
-* 학생 lesson 등록 페이지: 수강 가능한 시간의 강사보기 클릭시 해당 시간에 등록 가능한 강사 표시<br>![img_6.png](img_6.png)<br>수강신청 클릭시<br>![img_7.png](img_7.png)
-* 
+  *
 ## 스펙
 * DB: sqlite3
   * tables:
@@ -38,6 +26,10 @@
       * time_table_id:integer | 관계 설정을 위한 컬럼
       * student_id:integer   | 관계 설정을 위한 컬럼
     * Tutor / Student: Devise 승계
+    
+    * ER diagram<br>![](ER Diagrampng.png)
+  * rake db:seed로 데이터 생성 부탁드립니다.(TimeTable, tutor, student table 초기 데이터, Lesson은 프론트로 생성 및 테스트 권장
+
 
 ## API 명세서
 | prefix             | verb | URI                                                      | Return                    |
@@ -57,3 +49,10 @@
 | scaffold timetable |      |                                                          |                           |
 | devise student     |      |                                                          |                           |
 | devise tutor       |      |                                                          |                           |
+## 기능 구현
+* root 페이지:<br>![img.png](img.png)
+* 로그인 페이지:<br>![img_1.png](img_1.png)
+* 튜터 페이지(/tutor) 해당 페이지에서 해당 튜터가 등록한 lesson 확인  및 Timetable에 따른 lesson 등록(프론트에서 등록 가능 링크를 제한함(lesson겹치지 않도록))<br>![img_2.png](img_2.png) 
+* 튜터 lesson 등록 페이지 등록시 기존에 등록한 lesson을 확인하여 겹치지 않도록 제한 함 겹칠시 /tutor 페이지로 되돌아감.<br>![img_4.png](img_4.png)![img_3.png](img_3.png)
+* 학생 페이지(/student) 해당 페이지에서 TimeTable에 따른 수강 가능한 시간 확인 (프론트에서 제한)<br>![img_5.png](img_5.png)
+* 학생 lesson 등록 페이지: 수강 가능한 시간의 강사보기 클릭시 해당 시간에 등록 가능한 강사 표시<br>![img_6.png](img_6.png)<br>수강신청 클릭시<br>![img_7.png](img_7.png)

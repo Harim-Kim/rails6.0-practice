@@ -7,8 +7,8 @@
     <th scope="col">Start Time</th>
     <th scope="col">End Time</th>
     <th scope="col">lesson type</th>
-    <th scope="col">tutor/th>
-<!--    <th scope="col">delete</th>-->
+    <th scope="col">tutor</th>
+    <th scope="col">unenroll</th>
   </tr>
   </thead>
   <tbody>
@@ -20,7 +20,7 @@
       <td><%= l.lesson_type %></td>
       <td><%= l.tutor.email %></td>
 
-<!--      <td><%#= link_to 'Destroy', l, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+      <td><%= link_to '수강 취소', unenroll_lesson_path(lesson_id: l.id), method: :delete, data: { confirm: '정말 수강 취소합니까?' } %></td>
 
     </tr>
 

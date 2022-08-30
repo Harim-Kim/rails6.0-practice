@@ -9,19 +9,24 @@ class StudentController < ApplicationController
   def enroll
     lesson = Lesson.find(params[:lesson_id])
     lesson.update(student_id: current_student.id)
-    respond_to do |format|
-      if lesson.save
-        format.html { redirect_to lesson_url(lesson), notice: "Lesson was successfully created." }
-        format.json { render :show, status: :created, location: lesson }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: lesson.errors, status: :unprocessable_entity }
-      end
-    end
+    lesson.save
+    redirect_to '/student'
+    # respond_to do |format|
+    #   if lesson.save
+    #     format.html { redirect_to lesson_url(lesson), notice: "Lesson was successfully created." }
+    #     format.json { render :show, status: :created, location: lesson }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: lesson.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def unenroll
-
+    lesson = Lesson.find(params[:lesson_id])
+    lesson.update(student_id: 0)
+    lesson.save
+    redirect_to '/student'
   end
 
   def index_20

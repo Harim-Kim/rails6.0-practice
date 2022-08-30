@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'student/index'
   get '/student' => "student#index", :as => :student_root
   post 'student/lesson/:lesson_id' => 'student#enroll', :as => :enroll_lesson
+  delete 'student/lesson/:lesson_id' => 'student#unenroll', as: :unenroll_lesson
   get 'student/time_tables/:time_table_id/lessons' => 'student#lessons'
   get 'student/time_tables/:time_table_id/lessons_20' => 'student#lessons_20'
   get 'student/time_tables/:time_table_id/lessons_40' => 'student#lessons_40'
