@@ -27,7 +27,7 @@
       * student_id:integer   | 관계 설정을 위한 컬럼
     * Tutor / Student: Devise 승계
     
-    * ER diagram<br>![](ER Diagrampng.png)
+    * ER diagram<br>![ER Diagrampng.png](ER Diagrampng.png)
   * rake db:seed로 데이터 생성 부탁드립니다.(TimeTable, tutor, student table 초기 데이터, Lesson은 프론트로 생성 및 테스트 권장
 
 
