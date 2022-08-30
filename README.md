@@ -10,7 +10,7 @@
   * Devise: 회원별 회원 가입
   * devise-i18n: devise 번역을 위한 라이브러리
   * simple_calendar: 프론트에 날짜 및 시간 데이터를 원할하게 보여주기 위한 라이브러리
-  *
+  
 ## 스펙
 * DB: sqlite3
   * tables:
